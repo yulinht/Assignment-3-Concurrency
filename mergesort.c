@@ -14,7 +14,7 @@ int *A;
 //extra storage
 int *B; 
 //when stop creating threads
-int cuttoff;
+int cutoff;
 
 
 /* this function will be called by mergesort() and also by parallel_mergesort(). */
@@ -40,6 +40,7 @@ void merge(int leftstart, int leftend, int rightstart, int rightend){
 		//right is smaller
 		else{
 			A[k] = B[leftsize +j];
+            j++;
 		}
 		k++;
 	}
@@ -60,7 +61,7 @@ void merge(int leftstart, int leftend, int rightstart, int rightend){
 /* this function will be called by parallel_mergesort() as its base case. */
 void my_mergesort(int left, int right){
 	//Base case for recursion(checking for 0 or 1 elements)
-	if(lef>right){
+	if(left>=right){
 		return;
 	}
 	//Find middle
