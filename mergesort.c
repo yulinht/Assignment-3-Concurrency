@@ -7,12 +7,70 @@
 #include <stdlib.h> /* for malloc */
 #include "mergesort.h"
 
+/* Global Vars*/
+
+//array going to sort
+int *A;
+//extra storage
+int *B; 
+//when stop creating threads
+int cuttoff;
+
+
 /* this function will be called by mergesort() and also by parallel_mergesort(). */
 void merge(int leftstart, int leftend, int rightstart, int rightend){
+	//Get sizes
+	int leftsize = leftend - leftstart + 1;
+	int rightsize = rightend - rightstart + 1;
+	
+	//Copy array A into B
+	memcpy(B,&A[leftstart],(leftsize+ rightsize) * sizeof(int));
+
+	// Sorting
+	int i = 0; //left index
+	int j = 0;// right index
+	int k = leftstart;// merge pointer
+
+	while (i<leftsize && j<rightsize){
+		//left is smaller or equal
+		if (B[i] <= B[leftsize + j]){
+			A[k] = B[i];
+			i++;
+		}
+		//right is smaller
+		else{
+			A[k] = B[leftsize +j];
+		}
+		k++;
+	}
+
+	//make sure all arrays are empty after loop is done
+	while(i<leftsize){
+		A[k]=B[i];
+		i++;
+		k++;
+	}
+	while(j<rightsize){
+		A[k]=B[leftsize+j];
+		j++;
+		k++;
+	}
 }
 
 /* this function will be called by parallel_mergesort() as its base case. */
 void my_mergesort(int left, int right){
+	//Base case for recursion(checking for 0 or 1 elements)
+	if(lef>right){
+		return;
+	}
+	//Find middle
+	int mid = left + (right - left )/2;
+
+	//Recursively sort
+	my_mergesort(left,mid);
+	my_mergesort(mid+1,right);
+	//Merge
+	merge(left,mid,mid+1,right);
 }
 
 /* this function will be called by the testing program. */
@@ -24,4 +82,3 @@ void * parallel_mergesort(void *arg){
 struct argument * buildArgs(int left, int right, int level){
 		return NULL;
 }
-
