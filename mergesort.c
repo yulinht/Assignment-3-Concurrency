@@ -9,12 +9,12 @@
 
 /* Global Vars*/
 
-//array going to sort
-extern int *A;
-//extra storage
-extern int *B; 
-//when stop creating threads
-extern int cutoff;
+ //array going to sort
+ extern int *A;
+ //extra storage
+ extern int *B; 
+ //when stop creating threads
+ extern int cutoff;
 
 
 /* this function will be called by mergesort() and also by parallel_mergesort(). */
@@ -27,11 +27,10 @@ void merge(int leftstart, int leftend, int rightstart, int rightend){
 	memcpy(B,&A[leftstart],(leftsize+ rightsize) * sizeof(int));
 
 	// Sorting
-	int i = 0; //left index
+	int i = leftstart; //left index
 	int j = 0;// right index
 	int k = leftstart;// merge pointer
-
-	while (i<leftsize && j<rightsize){
+	while (i <= leftstart + leftsize  && j < rightsize){
 		//left is smaller or equal
 		if (B[i] <= B[leftsize + j]){
 			A[k] = B[i];
@@ -71,6 +70,7 @@ void my_mergesort(int left, int right){
 	my_mergesort(left,mid);
 	my_mergesort(mid+1,right);
 	//Merge
+	//printf("Merging sequentially for indices %d to %d and %d to %d\n", left, mid, mid + 1,  right);
 	merge(left,mid,mid+1,right);
 }
 
@@ -83,7 +83,7 @@ void * parallel_mergesort(void *arg){
 			int left = args->left;
 			int right = args->right;
 			int mid = left + (right - left) / 2;
-			//printf("Creating threads at level %d for indices %d to %d and %d to %d\n", args->level, left, mid, mid + 1,  right);
+			//printf("Creating threads at level %d for indices %d to %d and %d to %d\n", args->level + 1, left, mid, mid + 1,  right);
 			struct argument *argA = buildArgs(left, mid, args->level + 1);
 			struct argument *argB = buildArgs(mid + 1, right, args->level + 1);
 			pthread_t threadID_A, threadID_B;
@@ -91,10 +91,17 @@ void * parallel_mergesort(void *arg){
 			pthread_create(&threadID_B, NULL, parallel_mergesort, (void *) argB);
 			pthread_join(threadID_A, NULL);
 			pthread_join(threadID_B, NULL);
-			my_mergesort(left, right);
+			//printf("Merging at level %d for indices %d to %d and %d to %d\n", args->level, left, mid, mid + 1,  right);
+			merge(left, mid, mid + 1, right);
+        
+        	// Free the allocated memory
+			free(argA);
+			free(argB);
 		}
 		return NULL;
 }
+
+
 
 /* we build the argument for the parallel_mergesort function. */
 struct argument * buildArgs(int left, int right, int level){
