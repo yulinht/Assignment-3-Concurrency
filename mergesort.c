@@ -24,34 +24,35 @@ void merge(int leftstart, int leftend, int rightstart, int rightend){
 	int rightsize = rightend - rightstart + 1;
 	
 	//Copy array A into B
-	memcpy(B,&A[leftstart],(leftsize+ rightsize) * sizeof(int));
+	memcpy(&B[leftstart],&A[leftstart],(leftsize) * sizeof(int));
+	memcpy(&B[rightstart],&A[rightstart],(rightsize) * sizeof(int));
 
 	// Sorting
 	int i = leftstart; //left index
-	int j = 0;// right index
+	int j = rightstart;// right index
 	int k = leftstart;// merge pointer
-	while (i <= leftstart + leftsize  && j < rightsize){
+	while (i <= leftend && j <= rightend){
 		//left is smaller or equal
-		if (B[i] <= B[leftsize + j]){
+		if (B[i] <= B[j]){
 			A[k] = B[i];
 			i++;
 		}
 		//right is smaller
 		else{
-			A[k] = B[leftsize +j];
+			A[k] = B[j];
             j++;
 		}
 		k++;
 	}
 
 	//make sure all arrays are empty after loop is done
-	while(i<leftsize){
+	while(i<=leftend){
 		A[k]=B[i];
 		i++;
 		k++;
 	}
-	while(j<rightsize){
-		A[k]=B[leftsize+j];
+	while(j<=rightend){
+		A[k]=B[j];
 		j++;
 		k++;
 	}
