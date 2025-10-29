@@ -24,9 +24,8 @@ void merge(int leftstart, int leftend, int rightstart, int rightend){
 	int rightsize = rightend - rightstart + 1;
 	
 	//Copy array A into B
-	memcpy(&B[leftstart],&A[leftstart],(leftsize) * sizeof(int));
-	memcpy(&B[rightstart],&A[rightstart],(rightsize) * sizeof(int));
-
+    memcpy(&B[leftstart],&A[leftstart],(leftsize+rightsize) * sizeof(int));
+	
 	// Sorting
 	int i = leftstart; //left index
 	int j = rightstart;// right index
