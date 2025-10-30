@@ -67,7 +67,7 @@ The code was ran numerous times with 100000000 elements and different cut off po
 During development, we realized that the two memcpy operations copying the left and right subarrays could be merged into a single operation, since array segments are stored contiguously in memory. We therefore modified the code.  
 
 Turn:  
- ```memcpy(&B[leftstart],&A[leftstart],(leftsize) * sizeof(int));
+```memcpy(&B[leftstart],&A[leftstart],(leftsize) * sizeof(int));
    memcpy(&B[rightstart],&A[rightstart],(rightsize) * sizeof(int));
 ```
  into  
