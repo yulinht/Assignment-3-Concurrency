@@ -64,7 +64,8 @@ The code was ran numerous times with 100000000 elements and different cut off po
 
 
 ## Reflection and Self Assessment  
-During development, we realized that the two memcpy operations copying the left and right subarrays could be merged into a single operation, since array segments are stored contiguously in memory. We therefore modified the code.  
+This project was developed as a group assignment, where we collaboratively implemented a parallel mergesort algorithm. During development, we encountered challenges with thread synchronization, memory management, and boundary calculations.  
+For example, we realized that the two memcpy operations copying the left and right subarrays could be merged into a single operation, since array segments are stored contiguously in memory. We therefore modified the code.  
 
 Turn:  
 ```c
