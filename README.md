@@ -25,13 +25,10 @@ Mitchell Pratt      a1885118
 7 test-mergesort.c - Test program for evaluating sorting algorithms  
 
 ## Building the project  
-To build the project
-1.Download the project folder
-2.Run the make file
+To build the project。
+1.Download the project folder  
+2.Run the make file  
  
-
-
-
 ## Features and usage   
 ### Key Features  
 1.Parallel Merge Sort: Implements merge sort using multithreading to enhance performance  
@@ -41,20 +38,17 @@ To build the project
 5.Memory Management: Efficiently allocates and releases memory for arrays and thread parameters  
 
 ### Usage  
-To use this code
-1.Then use the command ./test-mergesort x y x
-    1.1 where x is number of elements
-    1.2 where y is the cut off level
-    1.3 an example being ./test-mergesort 100000000 0 1234
-2. Read the output in terminal
-
-
-
+To use this code  
+1.Then use the command ./test-mergesort x y x  
+    1.1 where x is number of elements  
+    1.2 where y is the cut off level  
+    1.3 an example being ./test-mergesort 100000000 0 1234  
+2. Read the output in terminal  
 
 
 
 ## Testing  
-The code was ran numerous times with 100000000 elements and different cut off points. 
+The code was ran numerous times with 100000000 elements and different cut off points.   
 
 
 ## Known Bugs  
