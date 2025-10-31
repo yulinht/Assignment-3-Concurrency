@@ -25,7 +25,7 @@ Mitchell Pratt      a1885118
 7 test-mergesort.c - Test program for evaluating sorting algorithms  
 
 ## Building the project  
-To build the project。
+To build the project  
 1.Download the project folder  
 2.Run the make file  
  
